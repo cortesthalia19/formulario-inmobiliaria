@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inmobiliaria Premium - Contacto</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+        
+        .contact-form {
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary);
+        }
+        
+        .required::after {
+            content: " *";
+            color: var(--accent);
+        }
+        
+        .select-wrapper {
+            position: relative;
+        }
+        
+        .select-wrapper::after {
+            content: '▼';
+            position: absolute;
+            top: 50%;
+            right: 1rem;
+            transform: translateY(-50%);
+            color: #7f8c8d;
+            pointer-events: none;
+        }
+        
+        select.form-control {
+            appearance: none;
+            padding-right: 2.5rem;
+        }
+        
+        .btn {
+            background-color: var(--secondary);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 1rem;
+        }
+        
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+        
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 90%;
+            transform: translateY(-50px);
+            transition: transform 0.3s;
+            position: relative;
+        }
+        
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #7f8c8d;
+            transition: color 0.3s;
+        }
+        
+        .close-modal:hover {
+            color: var(--accent);
+        }
+        
+        .modal-success {
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        .modal-success i {
+            font-size: 3rem;
+            color: #2ecc71;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-success h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .modal-success p {
+            margin-bottom: 1.5rem;
+            color: #7f8c8d;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+                margin: 1rem auto;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Formulario de Contacto - Inmobiliaria</h1>
+        
+        <form id="contactForm" class="contact-form">
+            <div class="form-group">
+                <label for="nombre" class="required">Nombre completo</label>
+                <input type="text" id="nombre" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="telefono" class="required">Teléfono</label>
+                <input type="tel" id="telefono" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Correo electrónico</label>
+                <input type="email" id="email" class="form-control">
+            </div>
+            
+            <div class="form-group">
+                <label for="tipo-propiedad" class="required">¿Qué tipo de propiedad busca?</label>
+                <div class="select-wrapper">
+                    <select id="tipo-propiedad" class="form-control" required>
+                        <option value="" disabled selected>Seleccione una opción</option>
+                        <option value="Terreno">Terreno</option>
+                        <option value="Edificio">Edificio</option>
+                        <option value="Apartamento">Apartamento</option>
+                        <option value="Casa">Casa</option>
+                        <option value="Finca">Finca</option>
+                        <option value="Local">Local</option>
+                        <option value="Centro comercial">Centro comercial</option>
+                        <option value="Plaza de garaje">Plaza de garaje</option>
+                        <option value="Otro">Otro</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label class="required">Interesado en</label>
+                <div style="display: flex; gap: 1.5rem;">
+                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="radio" name="interes" value="Comprar" required> Comprar
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                        <input type="radio" name="interes" value="Vender"> Vender
+                    </label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="mensaje">Mensaje adicional</label>
+                <textarea id="mensaje" class="form-control" rows="4"></textarea>
+            </div>
+            
+            <button type="submit" class="btn">Enviar información</button>
+        </form>
+    </div>
+    
+    <!-- Modal de confirmación -->
+    <div class="modal" id="confirmationModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <div class="modal-success">
+                <i class="fas fa-check-circle"></i>
+                <h3>¡Gracias por contactarnos!</h3>
+                <p>Hemos recibido tu información. Uno de nuestros asesores se pondrá en contacto contigo lo antes posible.</p>
+                <button class="btn" onclick="closeModal()">Aceptar</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const form = document.getElementById('contactForm');
+        const modal = document.getElementById('confirmationModal');
+        
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Aquí puedes agregar código para enviar los datos a tu servidor
+            // Por ahora solo mostraremos el modal de confirmación
+            
+            // Recolectar datos del formulario
+            const formData = {
+                nombre: document.getElementById('nombre').value,
+                telefono: document.getElementById('telefono').value,
+                email: document.getElementById('email').value,
+                tipoPropiedad: document.getElementById('tipo-propiedad').value,
+                interes: document.querySelector('input[name="interes"]:checked').value,
+                mensaje: document.getElementById('mensaje').value
+            };
+            
+            console.log('Datos del formulario:', formData);
+            
+            // Mostrar modal de confirmación
+            modal.classList.add('active');
+            
+            // Opcional: Resetear el formulario
+            form.reset();
+        });
+        
+        function closeModal() {
+            modal.classList.remove('active');
+        }
+        
+        // Cerrar modal al hacer clic fuera del contenido
+        window.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>
